@@ -5,7 +5,7 @@ const covid19ImpactEstimator = (data) => {
   // input in data
 
   // Destructuring data
-  const { periodType, timeFactor, timeToElapse, reportedCases } = data;
+  const { periodType, timeToElapse, reportedCases } = data;
 
   //    calculate InfectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
@@ -18,13 +18,13 @@ const covid19ImpactEstimator = (data) => {
   // normalize days; check for weeks and months if used
   switch (periodType.trim().toLowerCase()) {
     case 'months':
-      timeFactor = Math.trunc((timeToElapse * 30) / 3);
+      (timeToElapse * 30) / 3;
       break;
     case 'weeks':
-      timeFactor = Math.trunc((timeToElapse * 7) / 3);
+      (timeToElapse * 7) / 3;
       break;
     case 'days':
-      timeFactor = Math.trunc(timeToElapse / 3);
+      timeToElapse / 3;
       break;
     default:
   }
