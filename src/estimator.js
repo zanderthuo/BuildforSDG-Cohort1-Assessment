@@ -72,8 +72,22 @@ const covid19ImpactEstimator = (data) => {
   impact.casesFprVentilatorsByRequestedTime = impact.infectionsByRequestedTime * 0.02;
   severeImpact.casesForVentilatorsByRequestedTime = severeImpact.infectionsByRequestedTime * 0.02;
 
-  impact.dollarsInFlight = impact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
-  severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
+  let usdInFight;
+  // const compute = population * avgDailyIncomeInUsd;
+
+  if (periodType === 'months') {
+    usdInFight = timeToElapse * 30;
+  } else if (periodType === 'weeks') {
+    usdInFight = timeToElapse * 7;
+  } else if (periodType === 'days') {
+    usdInFight = timeToElapse * 1;
+  }
+
+  const impactDollarsInFlight = (impact.InfestionsByRequestTime * avgDailyIncomePopulation) / usdInFight;
+  const severeImpactDollarsInFlight = (severeImpact.InfestionsByRequestTime * avgDailyIncomePopulation) / usdInFight;
+
+  impact.dollarsInFlight = Math.trunc(impactDollarsInFlight);
+  severeImpact.dollarsInFlight = Math.trunc(severeImpactDollarsInFlight);
   return {
     data,
     impact,
