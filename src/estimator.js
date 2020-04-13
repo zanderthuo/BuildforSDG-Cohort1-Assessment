@@ -44,16 +44,17 @@ const covid19ImpactEstimator = (data) => {
   impact.severeCasesByRequestedTime = impact.infectionsByRequestedTime * 0.15;
   severeImpact.severeCasesByRequestedTime = severeImpact.infectionsByRequestedTime * 0.15;
 
-  impact.hospitalBedsByRequestedTime = calculateAvailableBeds(impact.severeCasesByRequestedTime);
-  severeImpact.hospitalBedsByRequestedTime = calculateAvailableBeds(severeImpact.severeCasesByRequestedTime);
-
   // calculate AvailableBeds
   const calculateAvailableBeds = (severeCasesByRequestedTime) => {
     const bedsAvailable = totalHospitalBeds * 0.35;
     const shortage = bedsAvailable - severeCasesByRequestedTime;
     const result = shortage < 0 ? shortage : bedsAvailable;
+    /* eslint-disable radix */
     return parseInt(result);
   }
+  impact.hospitalBedsByRequestedTime = calculateAvailableBeds(impact.severeCasesByRequestedTime);
+  severeImpact.hospitalBedsByRequestedTime = calculateAvailableBeds(severeImpact.severeCasesByRequestedTime);
+  
   return {
     data,
     impact,
