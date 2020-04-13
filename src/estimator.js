@@ -5,7 +5,12 @@ const covid19ImpactEstimator = (data) => {
   // input in data
 
   // Destructuring data
-  const { periodType, timeFactor, timeToElapse, reportedCases } = data;
+  const {
+    periodType, 
+    timeFactor, 
+    timeToElapse, 
+    reportedCases
+ } = data;
 
   //    calculate InfectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
