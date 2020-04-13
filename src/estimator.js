@@ -8,6 +8,12 @@ const covid19ImpactEstimator = (data) => {
     totalHospitalBeds
   } = data;
 
+  // Destructuring the region of given data
+  const {
+    avgDailyIncomeInUSD,
+    avgDailyIncomePopulation
+  } = region;
+
   //calculate infectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
     const factor = parseInt(timeToElapse / 3);
