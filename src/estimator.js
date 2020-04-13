@@ -12,6 +12,7 @@ const covid19ImpactEstimator = (data) => {
 
   // Destructuring data
   const {
+    region,
     periodType,
     timeToElapse,
     reportedCases,
