@@ -66,28 +66,38 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.hospitalBedsByRequestedTime = calculateAvailableBeds(severeImpact.severeCasesByRequestedTime);
 
   // challenge 3
-  impact.casesForICUByRequestedTime = impact.infectionsByRequestedTime * 0.05;
-  severeImpact.casesForICUByRequestedTime = severeImpact.infectionsByRequestedTime * 0.05;
+  const CasesforICU = impact.infectionsByRequestedTime * 0.05;
+  const ImpactCasesforICU = severeImpact.infectionsByRequestedTime * 0.05;
 
-  impact.casesFprVentilatorsByRequestedTime = impact.infectionsByRequestedTime * 0.02;
-  severeImpact.casesForVentilatorsByRequestedTime = severeImpact.infectionsByRequestedTime * 0.02;
+  const Ventilators = impact.infectionsByRequestedTime * 0.02;
+  const ImpactVentilators = severeImpact.infectionsByRequestedTime * 0.02;
+
+
+  impact.casesForICUByRequestedTime = Math.trunc(CasesforICU);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(ImpactCasesforICU);
+
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(Ventilators);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ImpactVentilators);
 
   let usdInFight;
-  // const compute = population * avgDailyIncomeInUsd;
+  const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUsd;
 
   if (periodType === 'months') {
     usdInFight = timeToElapse * 30;
+
+    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * computeIncome) / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
   } else if (periodType === 'weeks') {
     usdInFight = timeToElapse * 7;
+
+    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * computeIncome) / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
   } else if (periodType === 'days') {
     usdInFight = timeToElapse * 1;
+
+    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * computeIncome) / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
   }
-
-  const impactDollarsInFlight = (impact.InfestionsByRequestTime * avgDailyIncomePopulation) / usdInFight;
-  const severeImpactDollarsInFlight = (severeImpact.InfestionsByRequestTime * avgDailyIncomePopulation) / usdInFight;
-
-  impact.dollarsInFlight = Math.trunc(impactDollarsInFlight);
-  severeImpact.dollarsInFlight = Math.trunc(severeImpactDollarsInFlight);
   return {
     data,
     impact,
