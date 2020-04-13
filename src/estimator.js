@@ -36,23 +36,10 @@ const covid19ImpactEstimator = (data) => {
     default:
   }
 
-  // calculate InfectionsByRequestedTime
-  const calculateInfectionsByRequestedTime = (currentlyInfected) => {
-    // eslint-disable-next-line radix
-    const factor = parseInt(timeToElapse / 3);
-    return currentlyInfected * 2 ** factor;
-  };
-
-  // Impact
-  // challenge 1
-  impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(impact.currentlyInfected);
-
-  // severeImpact
-  // challenge 1
-  severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
-    severeImpact.currentlyInfected
-  );
-
+  // infections by time passed
+  impact.infectionsByRequestedTime = impact.currentlyInfected * (2 ** timeFactor);
+  severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** timeFactor);
+  
   return {
     data,
     impact,
