@@ -7,6 +7,19 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring data
   const { timeToElapse, reportedCases } = data;
 
+  // Custom functions and variables
+
+  // normalize days; check for weeks and months if used
+  switch (periodType) {
+    case 'weeks':
+      timeToElapse *= 7;
+      break;
+    case 'months':
+      timeToElapse *= 30;
+    default:
+      break;
+  }
+
   //    calculate InfectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
     // eslint-disable-next-line radix
