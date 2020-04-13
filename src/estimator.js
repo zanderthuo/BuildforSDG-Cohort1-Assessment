@@ -7,12 +7,6 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring data
   const { periodType, timeToElapse, reportedCases } = data;
 
-  //    calculate InfectionsByRequestedTime
-  const calculateInfectionsByRequestedTime = (currentlyInfected) => {
-    // eslint-disable-next-line radix
-    const factor = parseInt(timeToElapse / 3);
-    return currentlyInfected * 2 ** factor;
-  };
   // Custom functions and variables
 
   // normalize days; check for weeks and months if used
@@ -22,9 +16,17 @@ const covid19ImpactEstimator = (data) => {
       break;
     case 'months':
       timeToElapse *= 30;
+      break;
     default:
       break;
-  }
+    }
+
+  //calculate InfectionsByRequestedTime
+  const calculateInfectionsByRequestedTime = (currentlyInfected) => {
+    // eslint-disable-next-line radix
+    const factor = parseInt(timeToElapse / 3);
+    return currentlyInfected * 2 ** factor;
+  };
 
   // best case estimation
   const impact = {};
