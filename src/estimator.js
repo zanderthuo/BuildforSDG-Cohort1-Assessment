@@ -7,19 +7,28 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring data
   const { periodType, timeToElapse, reportedCases } = data;
 
+
+  const impact = {};
+
+  const severeImpact = {};
   // Custom functions and variables
 
   // normalize days; check for weeks and months if used
+  
+  let timeFactor;
+
   switch (periodType.trim().toLowerCase()) {
-    case 'weeks':
-      timeFactor = Math.trunc((timeToElapse *= 7) / 3);
-      break;
     case 'months':
-      timeFactor = Math.trunc((timeToElapse *= 30) / 3);
+      timeFactor = Math.trunc((timeToElapse * 30) / 3);
+      break;
+    case 'weeks':
+      timeFactor = Math.trunc((timeToElapse * 7) / 3);
+      break;
+    case 'days':
+      timeFactor = Math.trunc((timeToElapse) / 3);
       break;
     default:
-      break;
-    }
+  }
 
   // calculate InfectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
@@ -28,17 +37,14 @@ const covid19ImpactEstimator = (data) => {
     return currentlyInfected * 2 ** factor;
   };
 
-  // best case estimation
-  const impact = {};
-
+  //Impact
   // challenge 1
   impact.currentlyInfected = reportedCases * 10;
   impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
     impact.currentlyInfected
   );
 
-  // the severe case estimation
-  const severeImpact = {};
+  //severeImpact
   // challenge 1
   severeImpact.currentlyInfected = reportedCases * 50;
   severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
