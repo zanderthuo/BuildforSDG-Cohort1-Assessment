@@ -10,18 +10,18 @@ const covid19ImpactEstimator = (data) => {
   // Custom functions and variables
 
   // normalize days; check for weeks and months if used
-  switch (periodType) {
+  switch (periodType.trim().toLowerCase()) {
     case 'weeks':
-      timeToElapse *= 7;
+      timeFactor = Math.trunc((timeToElapse *= 7) / 3);
       break;
     case 'months':
-      timeToElapse *= 30;
+      timeFactor = Math.trunc((timeToElapse *= 30) / 3);
       break;
     default:
       break;
     }
 
-  //calculate InfectionsByRequestedTime
+  // calculate InfectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
     // eslint-disable-next-line radix
     const factor = parseInt(timeToElapse / 3);
