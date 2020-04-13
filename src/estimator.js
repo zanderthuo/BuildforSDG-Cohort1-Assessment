@@ -51,20 +51,20 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** timeFactor);
 
   // challenge 2
- const impactRequestedTime = impact.infectionsByRequestedTime * 0.15;
- const severeRequestedTime = severeImpact.infectionsByRequestedTime * 0.15;
+  const impactRequestedTime = impact.infectionsByRequestedTime * 0.15;
+  const severeRequestedTime = severeImpact.infectionsByRequestedTime * 0.15;
 
- impact.severeCasesByRequestedTime = Math.trunc(impactRequestedTime); // 15%
- severeImpact.severeCasesByRequestedTime = Math.trunc(severeRequestedTime); // 15%
+  impact.severeCasesByRequestedTime = Math.trunc(impactRequestedTime); // 15%
+  severeImpact.severeCasesByRequestedTime = Math.trunc(severeRequestedTime); // 15%
 
  // compute AvailableBeds ByRequestedTime
- const bedsAvailable = totalHospitalBeds * 0.35; // assuming that totalhospitalbeds available = 23 - 100%
- const impactShortage = bedsAvailable - impactRequestedTime; // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
- const severeShortage = bedsAvailable - severeRequestedTime; // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
+  const bedsAvailable = totalHospitalBeds * 0.35; // assuming that totalhospitalbeds available = 23 - 100%
+  const impactShortage = bedsAvailable - impactRequestedTime; // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
+  const severeShortage = bedsAvailable - severeRequestedTime; // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
 
 
- impact.hospitalBedsByRequestedTime = Math.trunc(impactShortage);
- severeImpact.hospitalBedsByRequestedTime = Math.trunc(severeShortage);
+  impact.hospitalBedsByRequestedTime = Math.trunc(impactShortage);
+  severeImpact.hospitalBedsByRequestedTime = Math.trunc(severeShortage);
   // challenge 3
   const CasesforICU = impact.infectionsByRequestedTime * 0.05;
   const ImpactCasesforICU = severeImpact.infectionsByRequestedTime * 0.05;
