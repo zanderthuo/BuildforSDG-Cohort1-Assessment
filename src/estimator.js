@@ -5,22 +5,11 @@ const covid19ImpactEstimator = (data) => {
   
     // Destructuring data
     const {
-      // region,
-      // periodType,
       timeToElapse,
       reportedCases
-      // population,
-      // totalHospitalBeds
     } = data;
   
-    // Destructuring the region of given data
-  //   const {
-  //     name,
-  //     avgAge,
-  //     avgDailyIncomeInUSD,
-  //     avgDailyIncomePopulation
-  //   } = region;
-  
+
     //    calculate InfectionsByRequestedTime
     const calculateInfectionsByRequestedTime = (currentlyInfected) => {
       // eslint-disable-next-line radix
@@ -48,5 +37,4 @@ const covid19ImpactEstimator = (data) => {
       severeImpact
     };
   };
-  export default covid19ImpactEstimator;
-  
+export default covid19ImpactEstimator;  
