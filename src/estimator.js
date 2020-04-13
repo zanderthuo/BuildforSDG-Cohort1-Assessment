@@ -1,23 +1,29 @@
-/* eslint-disable max-len */
-/* eslint-disable indent */
-
 const covid19ImpactEstimator = (data) => {
     // input in data
   
     // Destructuring data
   const {
     timeToElapse,
-    reportedCases
+    reportedCases,
+    totalHospitalBeds
   } = data;
   
 
     //    calculate InfectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
       // eslint-disable-next-line radix
-    const factor = parseInt(timeToElapse / 3);
-    return currentlyInfected * (2 ** factor);
+   const factor = parseInt(timeToElapse / 3);
+   return currentlyInfected * (2 ** factor);
   };
   
+  // calculate AvailableBeds
+  const calculateAvailableBeds = (severeCasesByRequestedTime) => {
+   const bedsAvailable = totalHospitalBeds * 0.35;
+   const shortage = bedsAvailable - severeCasesByRequestedTime;
+   const result = shortage < 0 ? shortage : bedsAvailable;
+    return parseInt(result);
+  };
+
     // best case estimation
   const impact = {};
   
@@ -27,7 +33,10 @@ const covid19ImpactEstimator = (data) => {
   //challenge 2
   impact.servereCasesByRequestedTime = impact.infectionsByRequestedTime * 0.15;
   impact.hospitalBedsByRequestedTime = calculateAvailableBeds(impact.severeCasesByRequestedTime);
-  
+  //challenge 3
+  impact.casesForICUByRequestedTime = impact.infectionsByRequestedTime * 0.05;
+  impact.casesFprVentilatorsByRequestedTime = impact.infectionsByRequestedTime * 0.02;
+  impact.dollarsInFlight = impact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
   
     // the severe case estimation
   const severeImpact = {};
@@ -37,11 +46,16 @@ const covid19ImpactEstimator = (data) => {
   // challenge 2
   severeImpact.severeCasesByRequestedTime = severeImpact.infectionsByRequestedTime * 0.15;
   severeImpact.hospitalBedsByRequestedTime = calculateAvailableBeds(severeImpact.severeCasesByRequestedTime);
- 
+ // challenge 3
+ severeImpact.casesForICUByRequestedTime = severeImpact.infectionsByRequestedTime * 0.05;
+ severeImpact.casesForVentilatorsByRequestedTime = severeImpact.infectionsByRequestedTime * 0.02;
+ severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
   return {
     data,
     impact,
     severeImpact
   };
+
 };
+
 export default covid19ImpactEstimator;  
