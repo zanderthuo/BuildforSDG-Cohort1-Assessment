@@ -51,10 +51,9 @@ const covid19ImpactEstimator = (data) => {
     const result = shortage < 0 ? shortage : bedsAvailable;
     /* eslint-disable radix */
     return parseInt(result);
-  }
+  };
   impact.hospitalBedsByRequestedTime = calculateAvailableBeds(impact.severeCasesByRequestedTime);
   severeImpact.hospitalBedsByRequestedTime = calculateAvailableBeds(severeImpact.severeCasesByRequestedTime);
-  
   return {
     data,
     impact,
