@@ -80,7 +80,7 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ImpactVentilators);
 
   let usdInFight;
-  const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUsd;
+  const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUSD;
 
   if (periodType === 'months') {
     usdInFight = timeToElapse * 30;
