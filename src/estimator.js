@@ -2,40 +2,39 @@
 /* eslint-disable indent */
 
 const covid19ImpactEstimator = (data) => {
-    // input in data
-  
-    // Destructuring data
-  const {
-    timeToElapse,
-    reportedCases
-  } = data;
-  
+  // input in data
 
-    //    calculate InfectionsByRequestedTime
+  // Destructuring data
+  const { timeToElapse, reportedCases } = data;
+
+  //    calculate InfectionsByRequestedTime
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
-      // eslint-disable-next-line radix
+    // eslint-disable-next-line radix
     const factor = parseInt(timeToElapse / 3);
-    return currentlyInfected * (2 ** factor);
+    return currentlyInfected * 2 ** factor;
   };
-  
-    // best case estimation
+
+  // best case estimation
   const impact = {};
-  
-    // challenge 1
+
+  // challenge 1
   impact.currentlyInfected = reportedCases * 10;
-  impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(impact.currentlyInfected);
-  
-  
-    // the severe case estimation
+  impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
+    impact.currentlyInfected
+  );
+
+  // the severe case estimation
   const severeImpact = {};
-    // challenge 1
+  // challenge 1
   severeImpact.currentlyInfected = reportedCases * 50;
-  severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(severeImpact.currentlyInfected);
-  
+  severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
+    severeImpact.currentlyInfected
+  );
+
   return {
     data,
     impact,
     severeImpact
   };
 };
-export default covid19ImpactEstimator;  
+export default covid19ImpactEstimator;
