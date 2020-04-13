@@ -1,5 +1,10 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable max-len */
-/* eslint-disable indent */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-const-assign */
+/* eslint-disable no-undef */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
 
 const covid19ImpactEstimator = (data) => {
   // input in data
@@ -7,25 +12,26 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring data
   const { periodType, timeToElapse, reportedCases } = data;
 
-
   const impact = {};
-
   const severeImpact = {};
   // Custom functions and variables
 
+  // challenge 1
+  impact.currentlyInfected = reportedCases * 10;
+  severeImpact.currentlyInfected = reportedCases * 50;
+
   // normalize days; check for weeks and months if used
-  
-  let timeFactor;
+  let factor;
 
   switch (periodType.trim().toLowerCase()) {
     case 'months':
-      timeFactor = Math.trunc((timeToElapse * 30) / 3);
+      factor = Math.trunc((timeToElapse * 30) / 3);
       break;
     case 'weeks':
-      timeFactor = Math.trunc((timeToElapse * 7) / 3);
+      factor = Math.trunc((timeToElapse * 7) / 3);
       break;
     case 'days':
-      timeFactor = Math.trunc((timeToElapse) / 3);
+      factor = Math.trunc((timeToElapse) / 3);
       break;
     default:
   }
@@ -34,19 +40,15 @@ const covid19ImpactEstimator = (data) => {
   const calculateInfectionsByRequestedTime = (currentlyInfected) => {
     // eslint-disable-next-line radix
     const factor = parseInt(timeToElapse / 3);
-    return currentlyInfected * 2 ** factor;
+      return currentlyInfected * 2 ** factor;
   };
 
   //Impact
   // challenge 1
-  impact.currentlyInfected = reportedCases * 10;
-  impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
-    impact.currentlyInfected
-  );
+  impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(impact.currentlyInfected);
 
   //severeImpact
   // challenge 1
-  severeImpact.currentlyInfected = reportedCases * 50;
   severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
     severeImpact.currentlyInfected
   );
