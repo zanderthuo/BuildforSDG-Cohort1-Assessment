@@ -5,10 +5,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
-const $q = document.querySelector.bind(document);
-const $qa = document.querySelectorAll.bind(document);
-
-
 const covid19ImpactEstimator = (data) => {
   // input in data
 
