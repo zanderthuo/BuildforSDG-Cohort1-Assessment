@@ -47,8 +47,7 @@ const covid19ImpactEstimator = (data) => {
 
   // infections by time passed
   impact.infectionsByRequestedTime = impact.currentlyInfected * 2 ** timeFactor;
-  severeImpact.infectionsByRequestedTime =
-    severeImpact.currentlyInfected * 2 ** timeFactor;
+  severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * 2 ** timeFactor;
 
   // challenge 2
   const impactRequestedTime = impact.infectionsByRequestedTime * 0.15;
@@ -83,8 +82,7 @@ const covid19ImpactEstimator = (data) => {
   const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUSD;
 
   const impactmoneylose = impact.infectionsByRequestedTime * computeIncome;
-  const severemoneylose =
-    severeImpact.infectionsByRequestedTime * computeIncome;
+  const severemoneylose = severeImpact.infectionsByRequestedTime * computeIncome;
 
   let usdInFight;
   if (periodType === 'months') {
