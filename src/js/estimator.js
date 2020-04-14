@@ -160,10 +160,10 @@ goEstimate.addEventListener('click', (event) => {
       totalHospitalBeds
     };
     const covid19 = covid19ImpactEstimator(input);
-    const {impact , severeImpact} = covid19[impact, severeImpact];
     const impactUI = $q('#impact');
     const severeImpactUI = $q('#severeImpact');
     const impactsContainner = $q('.impacts');
+    const { impact, severeImpact } = covid19[impact, severeImpact];
     impactUI.innerHTML = `
       <tr>
         <th>Currently Infected</th>
@@ -225,7 +225,6 @@ goEstimate.addEventListener('click', (event) => {
         <td>${severeImpact.dollarsInFlight}</td>
       </tr>
     `;
-
     showAlert('success', 'Data Submitted, scroll down to view impact analysis.');
     impactsContainner.classList.remove('is-hidden');
     goEstimate.disabled = false;
