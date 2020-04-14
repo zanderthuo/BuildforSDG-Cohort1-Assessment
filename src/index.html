@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title Page-->
+    <title>Covid-19 Estimator</title>
+    
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="css/style.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">Covid-19 Estimator</h2>
+                    <h3>Data Collection</h3><br />
+                    <form method="POST">
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label" for="population">Population</label>
+                                    <input class="input--style-4" type="number" name="population" id="population" data-population required>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label" for="reported-cases">Reported Cases</label>
+                                    <input class="input--style-4" type="number" name="reported-cases" id="reported-cases" data-reported-cases required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label" for="total-hospital-beds">Total Hospital Beds</label>
+                                    <div class="input-group-icon">
+                                        <input class="input--style-4 js-datepicker" type="number" name="total-hospital-beds" id="total-hospital-beds" data-total-hospital-beds required>
+                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label" for="time-to-elapse">Time To Elapse</label>
+                                    <input class="input" type="number" id="time-to-elapse" name="time-to-elapse" data-time-to-elapse required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="label" for="period-type">Period Type</label>
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select id="period-type" name="period-type" data-period-type requires>
+                                    <option disabled="disabled" selected="selected">Choose option</option>
+                                    <option>days</option>
+                                    <option>weeks</option>
+                                    <option>months</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2 btn--blue" type="submit" data-go-estimate>Submit</button>
+                        </div>
+                    </form>
+
+                    <div class="box impacts is-hidden">
+                        <div class="columns is-multiline">
+                          <!-- Impact Cases-->
+                          <div class="column is-12-tablet is-6-desktop">
+                            <h3 class="subtitle is-purple">Impact Cases</h3>
+                            <table class="table is-hoverable is-fullwidth">
+                              <tbody id="impact">
+                
+                              </tbody>
+                            </table>
+                          </div>
+                
+                          <!-- Severe Impact Cases -->
+                          <div class="column is-12-tablet is-6-desktop">
+                            <h3 class="subtitle is-purple">Severe Impact Cases</h3>
+                            <table class="table is-hoverable is-fullwidth">
+                              <tbody id="severeImpact">
+                
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+
+    <!-- Main JS-->
+    <script src="js/scripts.js"></script>
+    <script src="js/estimator.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
