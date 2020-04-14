@@ -1,4 +1,3 @@
-
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
@@ -22,6 +21,10 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring the region of given data
   const { avgDailyIncomeInUSD, avgDailyIncomePopulation } = region;
 
+  const casesForICU = getCases(impact.infectionsByRequestedTime, 0.05);
+
+  const casesForVentilators = getCases(impact.infectionsByRequestedTime, 0.02);
+
   const impact = {};
   const severeImpact = {};
   // Custom functions and variables
@@ -41,14 +44,15 @@ const covid19ImpactEstimator = (data) => {
       timeFactor = Math.trunc((timeToElapse * 7) / 3);
       break;
     case 'days':
-      timeFactor = Math.trunc((timeToElapse) / 3);
+      timeFactor = Math.trunc(timeToElapse / 3);
       break;
     default:
   }
 
   // infections by time passed
-  impact.infectionsByRequestedTime = impact.currentlyInfected * (2 ** timeFactor);
-  severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** timeFactor);
+  impact.infectionsByRequestedTime = impact.currentlyInfected * 2 ** timeFactor;
+  severeImpact.infectionsByRequestedTime =
+    severeImpact.currentlyInfected * 2 ** timeFactor;
 
   // challenge 2
   const impactRequestedTime = impact.infectionsByRequestedTime * 0.15;
@@ -62,41 +66,46 @@ const covid19ImpactEstimator = (data) => {
   const impactShortage = bedsAvailable - impactRequestedTime; // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
   const severeShortage = bedsAvailable - severeRequestedTime; // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
 
-
   impact.hospitalBedsByRequestedTime = Math.trunc(impactShortage);
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(severeShortage);
   // challenge 3
-  const CasesforICU = impact.infectionsByRequestedTime * 0.05;
+  const CasesICU = impact.infectionsByRequestedTime * 0.05;
   const ImpactCasesforICU = severeImpact.infectionsByRequestedTime * 0.05;
 
   const Ventilators = impact.infectionsByRequestedTime * 0.02;
   const ImpactVentilators = severeImpact.infectionsByRequestedTime * 0.02;
 
-
-  impact.casesForICUByRequestedTime = Math.trunc(CasesforICU);
+  impact.casesForICUByRequestedTime = Math.trunc(CasesICU);
   severeImpact.casesForICUByRequestedTime = Math.trunc(ImpactCasesforICU);
 
   impact.casesForVentilatorsByRequestedTime = Math.trunc(Ventilators);
-  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ImpactVentilators);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(
+    ImpactVentilators
+  );
 
-  let usdInFight;
+  // computation for dollars in fight
   const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUSD;
 
+  const impactmoneylose = impact.infectionsByRequestedTime * computeIncome;
+  const severemoneylose =
+    severeImpact.infectionsByRequestedTime * computeIncome;
+
+  let usdInFight;
   if (periodType === 'months') {
     usdInFight = timeToElapse * 30;
 
-    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * computeIncome) / usdInFight);
-    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
+    impact.dollarsInFlight = Math.trunc(impactmoneylose / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc(severemoneylose / usdInFight);
   } else if (periodType === 'weeks') {
     usdInFight = timeToElapse * 7;
 
-    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * computeIncome) / usdInFight);
-    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
+    impact.dollarsInFlight = Math.trunc(impactmoneylose / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc(severemoneylose / usdInFight);
   } else if (periodType === 'days') {
     usdInFight = timeToElapse * 1;
 
-    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * computeIncome) / usdInFight);
-    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
+    impact.dollarsInFlight = Math.trunc(impactmoneylose / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc(severemoneylose / usdInFight);
   }
   return {
     data,
