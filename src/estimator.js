@@ -21,10 +21,6 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring the region of given data
   const { avgDailyIncomeInUSD, avgDailyIncomePopulation } = region;
 
-  const casesForICU = getCases(impact.infectionsByRequestedTime, 0.05);
-
-  const casesForVentilators = getCases(impact.infectionsByRequestedTime, 0.02);
-
   const impact = {};
   const severeImpact = {};
   // Custom functions and variables
