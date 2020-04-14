@@ -125,7 +125,7 @@ const showAlert = (className, message) => {
   setTimeout(() => div.remove(), 3000);
 };
 
-goEstimate.addEventListener('click', event = () => {
+goEstimate.addEventListener('click', (event) => {
   event.preventDefault();
 
   // input data
@@ -136,33 +136,34 @@ goEstimate.addEventListener('click', event = () => {
   const tHospitalBeds = $q('[data-total-hospital-beds]');
 
   const periodType = pType.value;
-  /* eslint-disable no-radix */
-  const timeToElapse = parseInt(tmToElapse.value);
-  /* eslint-disable no-radix */
-  const reportedCases = parseInt(rCases.value);
-  /* eslint-disable no-radix */
-  const population = parseInt(populatn.value);
-  /* eslint-disable no-radix */
-  const totalHospitalBeds = parseInt(tHospitalBeds.value);
+  const timeToElapse = parseInt(tmToElapse.value, radix);
+  const reportedCases = parseInt(rCases.value, radix);
+  const population = parseInt(populatn.value, radix);
+  const totalHospitalBeds = parseInt(tHospitalBeds.value, radix);
 
   if (!periodType || !timeToElapse || !reportedCases || !population || !totalHospitalBeds) {
     showAlert('error', 'Oops! Please fill all fields.');
   } else {
     goEstimate.disabled = true;
 
-    const input = {
-      region: {
-        name: 'Africa',
-        avgAge: 19.7,
-        avgDailyIncomeInUSD: 5,
-        avgDailyIncomePopulation: 0.71
-      },
+    const 
+    {
+      region,
       periodType,
       timeToElapse,
       reportedCases,
       population,
       totalHospitalBeds
+    } = input;
+
+    const region = 
+    {
+      name: 'Africa',
+      avgAge: 19.7,
+      avgDailyIncomeInUSD: 5,
+      avgDailyIncomePopulation: 0.71
     };
+    
     const covid19 = covid19ImpactEstimator(input);
     const impact = covid19.impact;
     const severeImpact = covid19.severeImpact;
