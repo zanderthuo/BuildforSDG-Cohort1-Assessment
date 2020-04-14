@@ -145,7 +145,7 @@ goEstimate.addEventListener('click', (event) => {
     showAlert('error', 'Oops! Please fill all fields.');
   } else {
     goEstimate.disabled = true;
-    
+
     const input = {
       region: {
         name: 'Africa',
@@ -160,8 +160,7 @@ goEstimate.addEventListener('click', (event) => {
       totalHospitalBeds
     };
     const covid19 = covid19ImpactEstimator(input);
-    const impact = covid19.impact;
-    const severeImpact = covid19.severeImpact;
+    const {impact , severeImpact} = covid19[impact, severeImpact];
     const impactUI = $q('#impact');
     const severeImpactUI = $q('#severeImpact');
     const impactsContainner = $q('.impacts');
@@ -235,12 +234,5 @@ goEstimate.addEventListener('click', (event) => {
     rCases.value = '';
     populatn.value = '';
     tHospitalBeds.value = '';
-
-
-
-    // console.log(covid19.data);
-    // console.log(covid19.impact);
-    // console.log(covid19.severeImpact);
   }
 });
-
