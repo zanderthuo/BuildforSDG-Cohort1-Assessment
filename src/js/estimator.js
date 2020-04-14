@@ -145,25 +145,20 @@ goEstimate.addEventListener('click', (event) => {
     showAlert('error', 'Oops! Please fill all fields.');
   } else {
     goEstimate.disabled = true;
-
-    const 
-    {
-      region,
+    
+    const input = {
+      region: {
+        name: 'Africa',
+        avgAge: 19.7,
+        avgDailyIncomeInUSD: 5,
+        avgDailyIncomePopulation: 0.71
+      },
       periodType,
       timeToElapse,
       reportedCases,
       population,
       totalHospitalBeds
-    } = input;
-
-    const region = 
-    {
-      name: 'Africa',
-      avgAge: 19.7,
-      avgDailyIncomeInUSD: 5,
-      avgDailyIncomePopulation: 0.71
     };
-    
     const covid19 = covid19ImpactEstimator(input);
     const impact = covid19.impact;
     const severeImpact = covid19.severeImpact;
