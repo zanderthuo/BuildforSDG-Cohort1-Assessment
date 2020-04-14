@@ -102,7 +102,7 @@ const covid19ImpactEstimator = (data) => {
 
     impact.dollarsInFlight = Math.trunc(impactmoneylose / usdInFight);
     severeImpact.dollarsInFlight = Math.trunc(severemoneylose / usdInFight);
-  };
+  }
   return {
     data,
     impact,
