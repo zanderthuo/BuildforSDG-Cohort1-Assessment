@@ -5,7 +5,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
-'use strict';
 const $q = document.querySelector.bind(document);
 const $qa = document.querySelectorAll.bind(document);
 
@@ -115,7 +114,7 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-// Proccess Frontend; 
+// Proccess Frontend;
 const goEstimate = $q('[data-go-estimate]');
 
 const showAlert = (className, message) => {
@@ -124,9 +123,9 @@ const showAlert = (className, message) => {
   div.innerHTML = `${message}`;
   document.body.appendChild(div);
   setTimeout(() => div.remove(), 3000);
-}
+};
 
-goEstimate.addEventListener('click', event => {
+goEstimate.addEventListener('click', event = () => {
   event.preventDefault();
 
   // input data
@@ -137,19 +136,23 @@ goEstimate.addEventListener('click', event => {
   const tHospitalBeds = $q('[data-total-hospital-beds]');
 
   const periodType = pType.value;
+  /* eslint-disable no-radix */
   const timeToElapse = parseInt(tmToElapse.value);
+  /* eslint-disable no-radix */
   const reportedCases = parseInt(rCases.value);
+  /* eslint-disable no-radix */
   const population = parseInt(populatn.value);
+  /* eslint-disable no-radix */
   const totalHospitalBeds = parseInt(tHospitalBeds.value);
 
   if (!periodType || !timeToElapse || !reportedCases || !population || !totalHospitalBeds) {
-    showAlert('error', "Oops! Please fill all fields.");
+    showAlert('error', 'Oops! Please fill all fields.');
   } else {
     goEstimate.disabled = true;
 
     const input = {
       region: {
-        name: "Africa",
+        name: 'Africa',
         avgAge: 19.7,
         avgDailyIncomeInUSD: 5,
         avgDailyIncomePopulation: 0.71
@@ -159,7 +162,7 @@ goEstimate.addEventListener('click', event => {
       reportedCases,
       population,
       totalHospitalBeds
-    }
+    };
     const covid19 = covid19ImpactEstimator(input);
     const impact = covid19.impact;
     const severeImpact = covid19.severeImpact;
@@ -228,7 +231,7 @@ goEstimate.addEventListener('click', event => {
       </tr>
     `;
 
-    showAlert('success', "Data Submitted, scroll down to view impact analysis.");
+    showAlert('success', 'Data Submitted, scroll down to view impact analysis.');
     impactsContainner.classList.remove('is-hidden');
     goEstimate.disabled = false;
     pType.value = '';
